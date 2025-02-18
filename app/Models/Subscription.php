@@ -21,15 +21,4 @@ class Subscription extends Model
     {
         return $this->belongsTo(Plan::class);
     }
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    // protected function casts(): array
-    // {
-    //     return [
-    //     ];
-    // }
 }

@@ -14,7 +14,7 @@ class SubscriptionExpiryNotification extends Command
      *
      * @var string
      */
-    protected $signature = 'subscription:expiry-notification';
+    protected $signature = 'subscription-expiry-notification';
 
     /**
      * The console command description.
@@ -28,12 +28,12 @@ class SubscriptionExpiryNotification extends Command
      */
     public function handle()
     {
-        $subscriptions = Subscription::with('customer')
-            ->where('end_date', '<', Carbon::now())
-            ->get();
+        $subscriptions = Subscription::with(['customer', 'plan'])
+            ->where('end_date', '<', Carbon::now())->get();
 
         foreach ($subscriptions as $subscription) {
             dispatch(new SendSubscriptionExpiryMessageJob($subscription));
+            // ->onQueue('subscription');
         }
     }
 }
