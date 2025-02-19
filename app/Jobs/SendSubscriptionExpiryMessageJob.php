@@ -2,11 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Mail\SubscriptionMail;
+use App\Enums\SubscriptionEnum;
 use App\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Mail;
 
 class SendSubscriptionExpiryMessageJob implements ShouldQueue
 {
@@ -24,7 +23,7 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
      *
      * @var int
      */
-    public $backoff = 3;
+    public $backoff = 5;
 
     /**
      * Create a new job instance.
@@ -38,8 +37,10 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->subscription->customer->email)
-            ->send(new SubscriptionMail($this->subscription));
+        $this->subscription->update(["status" => SubscriptionEnum::CANCELD]);
+
+        // Mail::to($this->subscription->customer->email)
+        //     ->send(new SubscriptionMail($this->subscription));
     }
 
     //this for job failed

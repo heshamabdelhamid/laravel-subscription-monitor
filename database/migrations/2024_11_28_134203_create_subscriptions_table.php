@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Plan::class)->constrained()->cascadeOnDelete();
+            $table->enum('status', ['acitve', 'canceld'])
+                ->default('acitve');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->timestamps();

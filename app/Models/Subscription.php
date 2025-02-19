@@ -10,7 +10,7 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'plan_id', 'start_date', 'end_date'];
+    protected $fillable = ['customer_id', 'plan_id', 'start_date', 'end_date', 'status'];
 
     public function customer(): BelongsTo
     {
