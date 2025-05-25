@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Jobs;
 
 use App\Enums\SubscriptionEnum;
@@ -7,8 +6,7 @@ use App\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class SendSubscriptionExpiryMessageJob implements ShouldQueue
-{
+class SendSubscriptionExpiryMessageJob implements ShouldQueue {
     use Queueable;
 
     /**
@@ -28,15 +26,13 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public Subscription $subscription)
-    {
+    public function __construct(public Subscription $subscription) {
     }
 
     /**
      * Execute the job.
      */
-    public function handle(): void
-    {
+    public function handle(): void {
         $this->subscription->update(["status" => SubscriptionEnum::CANCELD]);
 
         // Mail::to($this->subscription->customer->email)
@@ -51,5 +47,4 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
     // php artisan queue:retry all this command to retry all job failed
     // php artisan queue:retry 5 this to retry special job failed
     // php artisan queue:flush this to delete all job failed
-
 }

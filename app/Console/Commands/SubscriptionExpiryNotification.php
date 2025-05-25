@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Console\Commands;
 
 use App\Jobs\SendSubscriptionExpiryMessageJob;
@@ -7,8 +6,7 @@ use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class SubscriptionExpiryNotification extends Command
-{
+class SubscriptionExpiryNotification extends Command {
     /**
      * The name and signature of the console command.
      *
@@ -26,8 +24,7 @@ class SubscriptionExpiryNotification extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
-    {
+    public function handle() {
         $subscriptions = Subscription::with(['customer', 'plan'])
             ->where('end_date', '<', Carbon::now())->get();
 
